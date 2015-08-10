@@ -10,19 +10,16 @@ angular.module('bhima.controllers')
   function ($scope, $translate, $filter, $q, precision, validate, appstate) {
     /* jshint unused : false */
     var dependencies = {}, ready = $q.defer();
-    var columns, options, dataview, grid,
-        manager = { session : {}, fn : {}, mode : {} };
+    // var columns, options, dataview, grid,
+    //     manager = { session : {}, fn : {}, mode : {} };
 
     // FIXME : this is <i>terrible</i>.  Never ever do this ever again!
-    appstate.set('journal.ready', ready.promise);
+    // appstate.set('journal.ready', ready.promise);
 
     dependencies.journal_bis = {
       identifier : 'uuid',
       query : 'journal_list/'
     };
-
-    $scope.teste = "maman";
-
 
 
     // function initialise (models) {
@@ -131,22 +128,26 @@ angular.module('bhima.controllers')
 
     function initialise (models){
       columns = [
-        {id: 'trans_id'       , name: $translate.instant('COLUMNS.TRANS_ID')       , field: 'trans_id'},
-        {id: 'trans_date'     , name: $translate.instant('COLUMNS.DATE')           , field: 'trans_date'},
-        {id: 'description'    , name: $translate.instant('COLUMNS.DESCRIPTION')    , field: 'description'},
-        {id: 'account_id'     , name: $translate.instant('COLUMNS.ACCOUNT_NUMBER') , field: 'account_number'}                  ,
-        {id: 'debit_equiv'    , name: $translate.instant('COLUMNS.DEB_EQUIV')      , field: 'debit_equiv'},
-        {id: 'credit_equiv'   , name: $translate.instant('COLUMNS.CRE_EQUIV')      , field: 'credit_equiv'},
-        {id: 'deb_cred_type'  , name: $translate.instant('COLUMNS.DC_TYPE')        , field: 'deb_cred_type'},
-        {id: 'comment'        , name: $translate.instant('COLUMNS.COMMENT')        , field: 'comment'} ,
-        {id: 'cc_id'          , name: $translate.instant('COLUMNS.COST_CENTER')    , field: 'cc'},
-        {id: 'pc_id'          , name: $translate.instant('COLUMNS.PROFIT_CENTER')  , field: 'pc'}
+        {headerName: $translate.instant('COLUMNS.TRANS_ID')       , field: 'trans_id'},
+        {headerName: $translate.instant('COLUMNS.DATE')           , field: 'trans_date'},
+        {headerName: $translate.instant('COLUMNS.DESCRIPTION')    , field: 'description'},
+        {headerName: $translate.instant('COLUMNS.ACCOUNT_NUMBER') , field: 'account_number'},
+        {headerName: $translate.instant('COLUMNS.DEB_EQUIV')      , field: 'debit_equiv'},
+        {headerName: $translate.instant('COLUMNS.CRE_EQUIV')      , field: 'credit_equiv'},
+        {headerName: $translate.instant('COLUMNS.DC_TYPE')        , field: 'deb_cred_type'},
+        {headerName: $translate.instant('COLUMNS.COMMENT')        , field: 'comment'},
+        {headerName: $translate.instant('COLUMNS.COST_CENTER')    , field: 'cc'},
+        {headerName: $translate.instant('COLUMNS.PROFIT_CENTER')  , field: 'pc'}
       ];
 
       $scope.gridOptions = {
         columnDefs: columns,
         rowData: models.journal_bis.data
       }
+
+
+
+       // $scope.gridOptions.api.onNewRows();
 
     }
 
@@ -155,9 +156,5 @@ angular.module('bhima.controllers')
     .catch(function (error) {
       ready.reject(error);
     });
-
-
-
-
   }
 ]);

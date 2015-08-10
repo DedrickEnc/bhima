@@ -76,6 +76,6 @@
 </main>-->
 
 
-<main ng-controllers="journal.grid">
-  <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%;"></div>
+<main>
+  <div ng-if="gridOptions" ag-grid="gridOptions" class="ag-dark" style="height: 100%;"></div>
 </main>
