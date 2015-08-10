@@ -2,7 +2,7 @@
   {{ 'POSTING_JOURNAL.TITLE' | translate}}
 </header>
 
-<nav ng-controller="journal.utilities">
+<!--<nav ng-controller="journal.utilities">
   <div class="pull-left dropdown">
     <button type="button" class="btn btn-sm btn-default dropdown-toggle" ng-disabled="!!session.authenticated">
       <span class="glyphicon glyphicon-th-list"></span> {{ 'POSTING_JOURNAL.GROUP_BY' | translate }}
@@ -73,4 +73,9 @@
       <div id="journal_grid" class="grid" style="height: 100%; overflow: hidden; outline: 0px; position: relative; font-size: 8pt"></div>
     </div>
   </div>
+</main>-->
+
+
+<main ng-controllers="journal.grid">
+  <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%;"></div>
 </main>

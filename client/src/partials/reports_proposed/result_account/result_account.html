@@ -40,7 +40,7 @@
           ng-click="generateDocument()" ng-if="!generatedDocumentPath">{{session.building ? loading : generate_doc}}
         </button>
 
-        <a class="btn btn-success" href="{{generatedDocumentPath}}" target="_blank" ng-if="generatedDocumentPath" ng-click="clearPath()">{{'RESULT_ACCOUNT.DOC_SUCCES' | translate}}/a>
+        <a class="btn btn-success" href="{{generatedDocumentPath}}" target="_blank" ng-if="generatedDocumentPath" ng-click="clearPath()">{{'RESULT_ACCOUNT.DOC_SUCCES' | translate}}</a>
       </form>
     </div>
   </div>

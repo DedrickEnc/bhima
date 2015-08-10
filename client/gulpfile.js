@@ -13,10 +13,10 @@ var UGLIFY = false;
 
 var paths = {
   scripts : ['src/js/define.js', 'src/**/*.js', '!src/js/app.js'],
-  styles  : ['src/partials/**/*.css', 'src/partials/**/**/*.css', 'src/css/*.css', '!src/css/*.min.css', 'src/css/grid/*.css'],
+  styles  : ['src/partials/**/*.css', 'src/partials/**/**/*.css', 'src/css/*.css', '!src/css/*.min.css', 'src/css/grid/*.css', 'src/css/ag-grid/*.css'],
   assets  : ['src/assets/**/*'],
   static  : ['src/index.html', 'src/login.html', 'src/error.html', 'src/project.html', 'src/js/app.js', 'src/i18n/*', 'src/css/fonts/*', 'src/partials/**/*.html', 'src/css/images/*'],
-  vendor  : ['vendor/angular/angular.js', 'vendor/angular/*.js', 'vendor/angular-translate/*', 'vendor/*.js'],
+  vendor  : ['vendor/angular/angular.js', 'vendor/angular/*.js', 'vendor/angular-translate/*', 'vendor/*.js', 'vendor/angular-grid/dist/*.js'],
   jquery : ['vendor/jquery/*.js', 'vendor/jquery/**/*.js'],
   slick : ['vendor/SlickGrid/*.js', 'vendor/SlickGrid/plugins/*.js'],
 };
