@@ -103,7 +103,7 @@ exports.listJournal = function (req, res, next) {
     "JOIN `user` ON `posting_journal`.`user_id`=`user`.`id` " +
     "JOIN `currency` ON `posting_journal`.`currency_id`=`currency`.`id` " +
     "LEFT JOIN `cost_center` ON `posting_journal`.`cc_id`=`cost_center`.`id` " +
-    "LEFT JOIN `profit_center` ON `posting_journal`.`pc_id`=`profit_center`.`id`"
+    "LEFT JOIN `profit_center` ON `posting_journal`.`pc_id`=`profit_center`.`id` ORDER BY `posting_journal`.`trans_date` ASC"
 
   db.exec(sql)
   .then(function (result) {

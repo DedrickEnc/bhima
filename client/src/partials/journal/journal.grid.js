@@ -8,22 +8,78 @@ angular.module('bhima.controllers')
   'validate',
   'appstate',
   function ($scope, $translate, $filter, $q, precision, validate, appstate) {
-    /* jshint unused : false */
-    var dependencies = {}, ready = $q.defer();
-    // var columns, options, dataview, grid,
-    //     manager = { session : {}, fn : {}, mode : {} };
 
-    // FIXME : this is <i>terrible</i>.  Never ever do this ever again!
-    // appstate.set('journal.ready', ready.promise);
+    var dependencies = {}, ready = $q.defer();
 
     dependencies.journal_bis = {
       identifier : 'uuid',
       query : 'journal_list/'
     };
 
+    var columns = [
+        {headerName: '', field: 'item', width: 150, cellRenderer: {renderer: 'group'}},
+        // {headerName: $translate.instant('COLUMNS.TRANS_ID')       , field: 'trans_id', width : 100, headerGroup: 'Transaction'},
+        {headerName: $translate.instant('COLUMNS.DATE'), field: 'trans_date', cellRenderer : formatDate, width : 100, headerGroup: 'Transaction'},
+        {headerName: $translate.instant('COLUMNS.DESCRIPTION')    , field: 'description', width : 200, headerGroup: 'Transaction'},
+        {headerName: $translate.instant('COLUMNS.ACCOUNT_NUMBER') , field: 'account_number', width : 100, headerGroup: 'Transaction'},
+        {headerName: $translate.instant('COLUMNS.DEB_EQUIV')      , field: 'debit_equiv', width : 100, headerGroup: 'Transaction'},
+        {headerName: $translate.instant('COLUMNS.CRE_EQUIV')      , field: 'credit_equiv', width : 100, headerGroup: 'Transaction'},
+        {headerName: $translate.instant('COLUMNS.DC_TYPE')        , field: 'deb_cred_type', width : 50, headerGroup: 'Transaction'},
+        {headerName: $translate.instant('COLUMNS.COST_CENTER')    , field: 'cc', width : 100, headerGroup: 'Transaction'},
+        {headerName: $translate.instant('COLUMNS.PROFIT_CENTER')  , field: 'pc', width : 100, headerGroup: 'Transaction'}
+    ];
 
-    // function initialise (models) {
-    //   angular.extend($scope, models);
+
+    //test
+    function initialise (models){
+
+      $scope.gridOptions = {
+        columnDefs: columns,
+        rowData : models.journal_bis.data,
+        pinnedColumnCount : 7,
+        rowSelection: 'single',
+        groupKeys: ['trans_id'],
+        groupHeaders: true,
+        groupDefaultExpanded: true,
+        groupIncludeFooter: true,
+        groupAggFields: ['debit_equiv','credit_equiv'],
+        enableColResize: true,
+        enableSorting: false,
+        groupSuppressAutoColumn: true,
+        enableFilter: false
+      }
+    }
+
+    var formatDate = function (val) {
+      return $filter('date')(val.value);
+    }
+
+    validate.process(dependencies)
+    .then(initialise)
+    .catch(function (error) {
+      ready.reject(error);
+    });
+  }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //   // set up grid properties
     //   columns = [
@@ -55,106 +111,3 @@ angular.module('bhima.controllers')
 
     //   populate();
     // }
-
-    // function formatDate (row, col, val) {
-    //   return $filter('date')(val);
-    // }
-
-    // function populate () {
-    //   var groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider();
-
-    //   dataview = new Slick.Data.DataView({
-    //     groupItemMetadataProvider: groupItemMetadataProvider,
-    //     inlineFilter: true
-    //   });
-
-    //   grid = new Slick.Grid('#journal_grid', dataview, columns, options);
-
-    //   grid.registerPlugin(groupItemMetadataProvider);
-    //   grid.setSelectionModel(new Slick.RowSelectionModel({selectActiveRow: false}));
-
-    //   // grid.setSelectionModel(new Slick.CellSelectionModel());
-
-    //   dataview.onRowCountChanged.subscribe(function (e, args) {
-    //     grid.updateRowCount();
-    //     grid.render();
-    //   });
-
-    //   dataview.onRowsChanged.subscribe(function (e, args) {
-    //     grid.invalidateRows(args.rows);
-    //     grid.render();
-    //   });
-
-    //   grid.onCellChange.subscribe(function(e, args) {
-    //     var id = args.item.id || args.item.uuid;
-    //     dataview.updateItem(id, args.item);
-    //   });
-
-    //   dataview.beginUpdate();
-    //   dataview.setItems($scope.journal_bis.data, 'uuid');
-    //   dataview.endUpdate();
-
-    //   expose();
-    // }
-
-    // function expose () {
-    //   ready.resolve([grid, columns, dataview, options, manager]);
-    // }
-
-    // function totalFormat(totals, column) {
-    //   var fmt = {
-    //     'credit'       : '#F70303',
-    //     'debit'        : '#02BD02',
-    //     'debit_equiv'  : '#F70303',
-    //     'credit_equiv' : '#02BD02'
-    //   };
-
-    //   var val = totals.sum && totals.sum[column.field];
-    //   if (val !== null) {
-    //     return '<span style="font-weight: bold; color:' + fmt[column.id] + ';">' + $filter('currency')(precision.round(val)) + '</span>';
-    //   }
-    //   return '';
-    // }
-
-    // validate.process(dependencies)
-    // .then(initialise)
-    // .catch(function (error) {
-    //   ready.reject(error);
-    // });
-
-
-
-    //test
-
-    function initialise (models){
-      columns = [
-        {headerName: $translate.instant('COLUMNS.TRANS_ID')       , field: 'trans_id'},
-        {headerName: $translate.instant('COLUMNS.DATE')           , field: 'trans_date'},
-        {headerName: $translate.instant('COLUMNS.DESCRIPTION')    , field: 'description'},
-        {headerName: $translate.instant('COLUMNS.ACCOUNT_NUMBER') , field: 'account_number'},
-        {headerName: $translate.instant('COLUMNS.DEB_EQUIV')      , field: 'debit_equiv'},
-        {headerName: $translate.instant('COLUMNS.CRE_EQUIV')      , field: 'credit_equiv'},
-        {headerName: $translate.instant('COLUMNS.DC_TYPE')        , field: 'deb_cred_type'},
-        {headerName: $translate.instant('COLUMNS.COMMENT')        , field: 'comment'},
-        {headerName: $translate.instant('COLUMNS.COST_CENTER')    , field: 'cc'},
-        {headerName: $translate.instant('COLUMNS.PROFIT_CENTER')  , field: 'pc'}
-      ];
-
-      $scope.gridOptions = {
-        columnDefs: columns,
-        rowData: models.journal_bis.data
-      }
-
-
-
-       // $scope.gridOptions.api.onNewRows();
-
-    }
-
-    validate.process(dependencies)
-    .then(initialise)
-    .catch(function (error) {
-      ready.reject(error);
-    });
-  }
-]);
