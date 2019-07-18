@@ -12,6 +12,9 @@ test/reports/
 server/sql/backup/
 server/plugins/mail/out/
 
+#Ignore docs
+docs/
+
 #Ignore build
 client/dest/
 
